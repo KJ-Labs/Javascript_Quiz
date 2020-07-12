@@ -1,8 +1,13 @@
+
+/* Set the variables so javascript can reference them*/ 
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+
+let correctAnswer = 0;
+let wrongAnswer = 0;
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -12,6 +17,7 @@ nextButton.addEventListener('click', () => {
   setNextQuestion()
 })
 
+/* Starts the game and hides the  question container*/ 
 function startGame() {
   startButton.classList.add('hide')
   shuffledQuestions = questions.sort(() => Math.random() - .5)
@@ -20,11 +26,13 @@ function startGame() {
   setNextQuestion()
 }
 
+/* Shifts to Next Question*/ 
 function setNextQuestion() {
   resetState()
   showQuestion(shuffledQuestions[currentQuestionIndex])
 }
 
+/* Shows the Next Question*/ 
 function showQuestion(question) {
   questionElement.innerText = question.question
   question.answers.forEach(answer => {
@@ -65,9 +73,9 @@ function selectAnswer(e) {
 function setStatusClass(element, correct) {
   clearStatusClass(element)
   if (correct) {
-    element.classList.add('correct')
+    correctAnswer ++;
   } else {
-    element.classList.add('wrong')
+    wrongAnswer++;
   }
 }
 
@@ -81,7 +89,7 @@ const questions = [
     question: 'What HTML Tag needs to be applied, before you can use JS?',
     answers: [
       { text: '<javascript>', correct: false },
-      { text: '<scripty>', correct: false },
+      { text: 'None needed', correct: false },
       { text: '<js>', correct: false },
       { text: '<script>', correct: true }
     ]
@@ -96,12 +104,12 @@ const questions = [
     ]
   },
   {
-    question: 'How do you reference an external script called scripty.js?',
+    question: 'How do you reference an external script called file.js?',
     answers: [
-      { text: '<script ref=”scripty.js”>', correct: false },
-      { text: '<script src=”scripty.js”>', correct: true },
-      { text: '<script ref=”scripty.js”>', correct: false },
-      { text: '<script name=”scripty.js”>', correct: false }
+      { text: '<script ref=”file.js”>', correct: false },
+      { text: '<script src=”file.js”>', correct: true },
+      { text: '<script ref=”file.js”>', correct: false },
+      { text: '<script name=”file.js”>', correct: false }
     ]
   },
   {

@@ -1,70 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quiz Challenge</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
-  <div class="container">
-    <div class="row">
-    <div class="header justify-content-md-center ">
-      <h1>Coding Quiz Challenge</h1>
-    </div>
+    <div class="container">
 
-    <div class="row">
-      <div class="col-3 col-s-3 menu">
-        <ul>
-          <br>
-          <br>
-          <button id="topscore">High Scores Page</button>
-          <br>
-          <br>
-          <br>
-          <br>
-        </ul>
-      </div>
+        <div id="startpage">
+            <h2>This quiz will test your knowledge</h2>
+            <h2>of various coding and web design concepts</h2>
+        <button id="startbtn">Start Code Quiz</button>
+        <button id="startPageHighscore" onclick="showHighscore()">High Scores</button>
+        </div>
 
- 
-      <div class="col-6 col-s-9 justify-content-md-center ">
-        <h1>The Javascript Quiz</h1>
-        <p>Answer the following questions within the time limit.
-          <br>
-          Wrong answers will decrease your score and reduce the timer by 10 seconds!
-        </p>
-          <div class="container">
-            <div id="question-container" class="hide">
-              <div id="question">Question</div>
-              <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-              </div>
-          </div>
-            <div class="controls">
-              <button id="start-btn" class="start-btn btn">Start</button>
-              <button id="next-btn" class="next-btn btn hide">Next</button>
+        <div id="quiz">
+            <div id="timer">Time left: </div>
+                <div id="questions"><p>Questions Placeholder</p></div>
+                    <button id="1" onclick="checkAnswer('1')">1</button>
+                    <button id="2" onclick="checkAnswer('2')">2</button>
+                    <button id="3" onclick="checkAnswer('3')">3</button>
+                    <button id="4" onclick="checkAnswer('4')">4</button>
+                <div id="result"></div>
+        </div>
+        <div id="gameover">
+
+            <div id="finalScore"></div>
+            <input type="text" size = "40" placeholder="Write your initials for high score" name="intials" id="initials"/>
+            <button id="submitScore">Submit Score</button>
+        </div>
+        <div id=highscoreContainer>
+        <div id="high-scorePage">
+            <div id="highscore-header">
+                <h3>User Initials</h3>
+                <h3>Score</h3>
             </div>
-          </div>
+            <div id = "highscore-initials"></div>
+            <div id = "highscore-score"></div>
+        </div>
+        <div id="endGameBtns">
+            <button id="playAgain" onclick="restartQuiz()">Play Again</button>
+            <button id="clearHighscore" onclick="clearScore()">Clear Highscores</button>
         </div>
     </div>
-
- 
-
-    <div class="col-3 col-s-12">
-      <div class="aside">
-      </div>
     </div>
-  </div>
-
-  <div class="footer">
-  </div>
-  </div>
+    <script src="script.js"></script>
 </body>
-
 </html>
+

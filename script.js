@@ -1,124 +1,194 @@
+// Get all the elements in one spot. 
+var quizBody = document.getElementById("quiz");
+var resultsEl = document.getElementById("result");
+var finalScoreEl = document.getElementById("finalScore");
+var gameoverDiv = document.getElementById("gameover");
+var questionsEl = document.getElementById("questions");
+var quizTimer = document.getElementById("timer");
+var startQuizButton = document.getElementById("startbtn");
+var startQuizDiv = document.getElementById("startpage");
+var highscoreContainer = document.getElementById("highscoreContainer");
+var highscoreDiv = document.getElementById("high-scorePage");
+var highscoreInputName = document.getElementById("initials");
+var highscoreDisplayName = document.getElementById("highscore-initials");
+var endGameBtns = document.getElementById("endGameBtns");
+var submitScoreBtn = document.getElementById("submitScore");
+var highscoreDisplayScore = document.getElementById("highscore-score");
+var button1 = document.getElementById("1");
+var button2 = document.getElementById("2");
+var button3 = document.getElementById("3");
+var button4 = document.getElementById("4");
 
-/* Set the variables so javascript can reference them*/ 
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
+// Make the questions
+var quizQuestions = [{
+    question: "What HTML Tag needs to be applied, before you can use JS?",
+    choice1: "javascript",
+    choice2: "None needed",
+    choice3: "js",
+    choice4: "script",
+    correctAnswer: "4"},
+  {
+    question: "What is the correct syntax to create an alert box saying hello world?",
+    choice1: "alert(“hello world”);",
+    choice2: "msg(“hello world”);",
+    choice3: "msgbox(“hello world”)",
+    choice4: "alertbox(“hello world”)",
+    correctAnswer: "1"},
+    {
+    question: "What do you use to define an array?",
+    choice1: "{ }",
+    choice2: "( )",
+    choice3: "[ ]",
+    choice4: "| |",
+    correctAnswer: "3"},
+    {
+    question: "What is used to create an OR statement in a Function?",
+    choice1: "||",
+    choice2: "&&",
+    choice3: "!!",
+    choice4: "++",
+    correctAnswer: "1"},  
+    
+    ];
 
-let correctAnswer = 0;
-let wrongAnswer = 0;
 
-let shuffledQuestions, currentQuestionIndex
+// Add the variables
+var finalQuestionIndex = quizQuestions.length;
+var currentQuestionIndex = 0;
+var timeLeft = 60;
+var timerInterval;
+var score = 0;
+var correct;
 
-startButton.addEventListener('click', startGame)
-nextButton.addEventListener('click', () => {
-  currentQuestionIndex++
-  setNextQuestion()
-})
+// This function cycles through the object array containing the quiz questions to generate the questions and answers.
+function generateQuizQuestion(){
+    gameoverDiv.style.display = "none";
+    if (currentQuestionIndex === finalQuestionIndex){
+        return showScore();
+    } 
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+    questionsEl.innerHTML = "<p>" + currentQuestion.question + "</p>";
+    button1.innerHTML = currentQuestion.choice1;
+    button2.innerHTML = currentQuestion.choice2;
+    button3.innerHTML = currentQuestion.choice3;
+    button4.innerHTML = currentQuestion.choice4;
+};
 
-/* Starts the game and hides the  question container*/ 
-function startGame() {
-  startButton.classList.add('hide')
-  shuffledQuestions = questions.sort(() => Math.random() - .5)
-  currentQuestionIndex = 0
-  questionContainerElement.classList.remove('hide')
-  setNextQuestion()
+// Starts the quiz, starts the timer and hides the other info
+function startQuiz(){
+    gameoverDiv.style.display = "none";
+    startQuizDiv.style.display = "none";
+    generateQuizQuestion();
+
+    //Create a timer
+    timerInterval = setInterval(function() {
+        timeLeft--;
+        quizTimer.textContent = "Time left: " + timeLeft;
+    
+        if(timeLeft === 0) {
+          clearInterval(timerInterval);
+          showScore();
+        }
+      }, 1000);
+    quizBody.style.display = "block";
+}
+// Shows when you reach the end of the quiz or the timer runs out. 
+function showScore(){
+    quizBody.style.display = "none"
+    gameoverDiv.style.display = "flex";
+    clearInterval(timerInterval);
+    highscoreInputName.value = "";
+    finalScoreEl.innerHTML = "You got " + score + " out of " + quizQuestions.length + " correct!";
 }
 
-/* Shifts to Next Question*/ 
-function setNextQuestion() {
-  resetState()
-  showQuestion(shuffledQuestions[currentQuestionIndex])
-}
+//This shows the highscore page and strigify the answers
+submitScoreBtn.addEventListener("click", function highscore(){
+    if(highscoreInputName.value === "") {
+        alert("Initials cannot be blank");
+        return false;
+    }else{
+        var savedHighscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
+        var currentUser = highscoreInputName.value.trim();
+        var currentHighscore = {
+            name : currentUser,
+            score : score
+        };
+    
+        gameoverDiv.style.display = "none";
+        highscoreContainer.style.display = "flex";
+        highscoreDiv.style.display = "block";
+        endGameBtns.style.display = "flex";
+        
+        savedHighscores.push(currentHighscore);
+        localStorage.setItem("savedHighscores", JSON.stringify(savedHighscores));
+        generateHighscores();
 
-/* Shows the Next Question*/ 
-function showQuestion(question) {
-  questionElement.innerText = question.question
-  question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
-    if (answer.correct) {
-      button.dataset.correct = answer.correct
     }
-    button.addEventListener('click', selectAnswer)
-    answerButtonsElement.appendChild(button)
-  })
+    
+});
+
+// Clears the list and gets new high score list
+function generateHighscores(){
+    highscoreDisplayName.innerHTML = "";
+    highscoreDisplayScore.innerHTML = "";
+    var highscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
+    for (i=0; i<highscores.length; i++){
+        var newNameSpan = document.createElement("li");
+        var newScoreSpan = document.createElement("li");
+        newNameSpan.textContent = highscores[i].name;
+        newScoreSpan.textContent = highscores[i].score;
+        highscoreDisplayName.appendChild(newNameSpan);
+        highscoreDisplayScore.appendChild(newScoreSpan);
+    }
 }
 
-function resetState() {
-  clearStatusClass(document.body)
-  nextButton.classList.add('hide')
-  while (answerButtonsElement.firstChild) {
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-  }
+// Shows you the high scores page
+function showHighscore(){
+    startQuizDiv.style.display = "none"
+    gameoverDiv.style.display = "none";
+    highscoreContainer.style.display = "flex";
+    highscoreDiv.style.display = "block";
+    endGameBtns.style.display = "flex";
+
+    generateHighscores();
 }
 
-function selectAnswer(e) {
-  const selectedButton = e.target
-  const correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
-  Array.from(answerButtonsElement.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
-  })
-  if (shuffledQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
-  } else {
-    startButton.innerText = 'Restart'
-    startButton.classList.remove('hide')
-  }
+//Clears all the things
+function clearScore(){
+    window.localStorage.clear();
+    highscoreDisplayName.textContent = "";
+    highscoreDisplayScore.textContent = "";
 }
 
-function setStatusClass(element, correct) {
-  clearStatusClass(element)
-  if (correct) {
-    correctAnswer ++;
-  } else {
-    wrongAnswer++;
-  }
+//Resets the quiz back to original
+function restartQuiz(){
+    highscoreContainer.style.display = "none";
+    gameoverDiv.style.display = "none";
+    startQuizDiv.style.display = "flex";
+    timeLeft = 60;
+    score = 0;
+    currentQuestionIndex = 0;
 }
 
-function clearStatusClass(element) {
-  element.classList.remove('correct')
-  element.classList.remove('wrong')
+//This checks if they selected the right answer 
+function checkAnswer(answer){
+    correct = quizQuestions[currentQuestionIndex].correctAnswer;
+
+    if (answer === correct && currentQuestionIndex !== finalQuestionIndex){
+        score++;
+
+        currentQuestionIndex++;
+        generateQuizQuestion();
+        //display in the results div that the answer is correct.
+    }else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex){
+
+        currentQuestionIndex++;
+        generateQuizQuestion();
+        //display in the results div that the answer is wrong.
+    }else{
+        showScore();
+    }
 }
 
-const questions = [
-  {
-    question: 'What HTML Tag needs to be applied, before you can use JS?',
-    answers: [
-      { text: '<javascript>', correct: false },
-      { text: 'None needed', correct: false },
-      { text: '<js>', correct: false },
-      { text: '<script>', correct: true }
-    ]
-  },
-  {
-    question: 'What is the correct syntax to create an alert box saying "hello world"?',
-    answers: [
-      { text: 'alert(“hello world”);', correct: true },
-      { text: 'msg(“hello world”);', correct: false },
-      { text: 'msgbox(“hello world”)', correct: false },
-      { text: 'alertbox(“hello world”);', correct: false }
-    ]
-  },
-  {
-    question: 'How do you reference an external script called file.js?',
-    answers: [
-      { text: '<script ref=”file.js”>', correct: false },
-      { text: '<script src=”file.js”>', correct: true },
-      { text: '<script ref=”file.js”>', correct: false },
-      { text: '<script name=”file.js”>', correct: false }
-    ]
-  },
-  {
-    question: 'What is used to create an or statement?',
-    answers: [
-      { text: '||', correct: false },
-      { text: '&&', correct: true },
-      { text: '--', correct: true },
-      { text: '!!', correct: true },
-    ]
-  }
-]
+// This button starts the quiz!
+startQuizButton.addEventListener("click",startQuiz);

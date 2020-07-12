@@ -181,7 +181,7 @@ function checkAnswer(answer){
         generateQuizQuestion();
         //display in the results div that the answer is correct.
     }else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex){
-        timerInterval.innerHTML = timer - 20; 
+         timerInterval = timerInterval - 20; 
         currentQuestionIndex++;
         generateQuizQuestion();
         //display in the results div that the answer is wrong.

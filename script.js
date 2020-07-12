@@ -92,6 +92,9 @@ function startQuiz(){
       }, 1000);
     quizBody.style.display = "block";
 }
+
+
+
 // Shows when you reach the end of the quiz or the timer runs out. 
 function showScore(){
     quizBody.style.display = "none"
@@ -181,9 +184,10 @@ function checkAnswer(answer){
         generateQuizQuestion();
         //display in the results div that the answer is correct.
     }else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex){
-         timerInterval = timerInterval - 20; 
         currentQuestionIndex++;
         generateQuizQuestion();
+        //removes 20 seconds if they answer incorrectly
+        timeLeft = timeLeft -20;
         //display in the results div that the answer is wrong.
     }else{
         showScore();

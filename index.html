@@ -1,53 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Javascript Coding Quiz">
+    <meta name="keywords" content="Javascript, Quiz, Coding">
     <title>Coding Quiz</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-    <div class="container">
 
-        <div id="startpage">
+    <article class="container">
+        //display in the results div that the answer is correct.
+        <section id="startpage">
             <h2>The Javascript Quiz</h2>
-            <h2>Answer 4 Coding Questions</h2>
-        <button id="startbtn">Start Quiz</button>
-        <button id="startPageHighscore" onclick="showHighscore()">High Scores Page</button>
-        </div>
+            <h2>Answer Coding Questions. If you make a mistake you will lose 20 seconds. </h2>
+            <button id="startbtn">Start Quiz</button>
+            <button id="startPageHighscore" onclick="showHighscore()">High Scores Page</button>
+        </section>
 
-        <div id="quiz">
-            <div id="timer">Time left: </div>
-                <div id="questions"><p>Questions Placeholder</p></div>
-                    <button id="1" onclick="checkAnswer('1')">1</button>
-                    <button id="2" onclick="checkAnswer('2')">2</button>
-                    <button id="3" onclick="checkAnswer('3')">3</button>
-                    <button id="4" onclick="checkAnswer('4')">4</button>
-                <div id="result"></div>
-        </div>
-        <div id="gameover">
+        <section id="quiz">
+            <section id="timer">Time left: </section>
+            <section id="questions">
+                <p>Questions Placeholder</p>
+            </section>
+            <button id="1" onclick="checkAnswer('1')">1</button>
+            <button id="2" onclick="checkAnswer('2')">2</button>
+            <button id="3" onclick="checkAnswer('3')">3</button>
+            <button id="4" onclick="checkAnswer('4')">4</button>
+            <section id="result"></section>
+        </section>
+        <section id="gameover">
 
-            <div id="finalScore"></div>
-            <input type="text" size = "40" placeholder="Write your initials for high score" name="intials" id="initials"/>
+            <section id="finalScore"></section>
+            <input type="text" size="40" placeholder="Write your initials for high score" name="intials"
+                id="initials" />
             <button id="submitScore">Submit Score</button>
-        </div>
-        <div id=highscoreContainer>
-        <div id="high-scorePage">
-            <div id="highscore-header">
-                <h3>User Initials</h3>
-                <h3>Score</h3>
-            </div>
-            <div id = "highscore-initials"></div>
-            <div id = "highscore-score"></div>
-        </div>
-        <div id="endGameBtns">
-            <button id="playAgain" onclick="restartQuiz()">Play Again</button>
-            <button id="clearHighscore" onclick="clearScore()">Clear Highscores</button>
-        </div>
-    </div>
-    </div>
+        </section>
+        <section id=highscoreContainer>
+            <section id="high-scorePage">
+                <section id="highscore-header">
+                    <h3>User Initials</h3>
+                    <h3>Score</h3>
+                </section>
+                <section id="highscore-initials"></section>
+                <section id="highscore-score">
+                    </disectionv>
+                </section>
+                <section id="endGameBtns">
+                    <button id="playAgain" onclick="restartQuiz()">Play Again</button>
+                    <button id="clearHighscore" onclick="clearScore()">Clear Highscores</button>
+                </section>
+            </section>
+    </article>
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>

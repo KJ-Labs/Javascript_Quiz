@@ -1,11 +1,10 @@
 :root{
-    background-color: rgb(224, 233, 253);
+    background-color:white;
     }
     
     li{
         padding-bottom: 3px;
-        color: white;
-        text-shadow: 1.5px 1px 3px black;
+        color: black;
         list-style-type: none;
     }
     
@@ -38,7 +37,7 @@
       button {
         display: inline-block;
         font-family: sans-serif;
-        background-color: #5e6df1;
+        background-color: #11A7AF;
         border-radius: 10px;
         border: 3px double #cccccc;
         color: #eeeeee;
@@ -50,7 +49,7 @@
       }
     
       button:hover{
-          box-shadow: 4px 3px 6px #4450bd;
+          box-shadow: 4px 3px 6px #4071A9;
       }
     
     #startpage{
@@ -61,7 +60,7 @@
     
     #timer{
         font-family: sans-serif;
-        background-color: #5a69f0;
+        background-color: black;
         color: #eeeeee;
         font-size: x-large;
         text-shadow: .5px .5px black;
@@ -94,7 +93,7 @@
         border-color: silver;
         border-bottom-style: groove;
         padding-bottom: .3rem;
-        background: lightsteelblue;
+        background: white;
     }
     
     #highscore-header{
@@ -102,7 +101,7 @@
         justify-content: space-around;
         border-bottom-style: outset;
         margin-bottom: .5rem;
-        background-color: #5e6df1;
+        background-color: #2A83A8;
         color: #eeeeee;
         font-family: sans-serif;
     }

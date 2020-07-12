@@ -11,16 +11,16 @@
 </head>
 
 <body>
-
+    <!-- Quiz container with start buttons -->
     <article class="container">
-        //display in the results div that the answer is correct.
         <section id="startpage">
-            <h2>The Javascript Quiz</h2>
-            <h2>Answer Coding Questions. If you make a mistake you will lose 20 seconds. </h2>
+            <h1>The Javascript Quiz</h1>
+            <h2>Answer 4 Coding Questions. Wrong answers will reduce time by 5 seconds. </h2>
             <button id="startbtn">Start Quiz</button>
             <button id="startPageHighscore" onclick="showHighscore()">High Scores Page</button>
         </section>
 
+        <!-- Placeholder so that the answers dissapear until you start the quiz -->
         <section id="quiz">
             <section id="timer">Time left: </section>
             <section id="questions">
@@ -33,7 +33,7 @@
             <section id="result"></section>
         </section>
         <section id="gameover">
-
+            <!-- Placeholder so that the high score page dissapears until you finsh the quiz or click on it -->
             <section id="finalScore"></section>
             <input type="text" size="40" placeholder="Write your initials for high score" name="intials"
                 id="initials" />

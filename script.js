@@ -26,30 +26,34 @@ var quizQuestions = [{
     choice2: "None needed",
     choice3: "js",
     choice4: "script",
-    correctAnswer: "4"},
-  {
+    correctAnswer: "4"
+},
+{
     question: "What is the correct syntax to create an alert box saying hello world?",
     choice1: "alert(“hello world”);",
     choice2: "msg(“hello world”);",
     choice3: "msgbox(“hello world”)",
     choice4: "alertbox(“hello world”)",
-    correctAnswer: "1"},
-    {
+    correctAnswer: "1"
+},
+{
     question: "What do you use to define an array?",
     choice1: "{ }",
     choice2: "( )",
     choice3: "[ ]",
     choice4: "| |",
-    correctAnswer: "3"},
-    {
+    correctAnswer: "3"
+},
+{
     question: "What is used to create an OR statement in a Function?",
     choice1: "||",
     choice2: "&&",
     choice3: "!!",
     choice4: "++",
-    correctAnswer: "1"},  
-    
-    ];
+    correctAnswer: "1"
+},
+
+];
 
 
 // Add the variables
@@ -61,11 +65,11 @@ var score = 0;
 var correct;
 
 // This function cycles through the object array containing the quiz questions to generate the questions and answers.
-function generateQuizQuestion(){
+function generateQuizQuestion() {
     gameoverDiv.style.display = "none";
-    if (currentQuestionIndex === finalQuestionIndex){
+    if (currentQuestionIndex === finalQuestionIndex) {
         return showScore();
-    } 
+    }
     var currentQuestion = quizQuestions[currentQuestionIndex];
     questionsEl.innerHTML = "<p>" + currentQuestion.question + "</p>";
     button1.innerHTML = currentQuestion.choice1;
@@ -75,28 +79,28 @@ function generateQuizQuestion(){
 };
 
 // Starts the quiz, starts the timer and hides the other info
-function startQuiz(){
+function startQuiz() {
     gameoverDiv.style.display = "none";
     startQuizDiv.style.display = "none";
     generateQuizQuestion();
 
     //Create a timer
-    timerInterval = setInterval(function() {
+    timerInterval = setInterval(function () {
         timeLeft--;
         quizTimer.textContent = "Time left: " + timeLeft;
-    
-        if(timeLeft === 0) {
-          clearInterval(timerInterval);
-          showScore();
+
+        if (timeLeft === 0) {
+            clearInterval(timerInterval);
+            showScore();
         }
-      }, 1000);
+    }, 1000);
     quizBody.style.display = "block";
 }
 
 
 
 // Shows when you reach the end of the quiz or the timer runs out. 
-function showScore(){
+function showScore() {
     quizBody.style.display = "none"
     gameoverDiv.style.display = "flex";
     clearInterval(timerInterval);
@@ -105,37 +109,37 @@ function showScore(){
 }
 
 //This shows the highscore page and strigify the answers
-submitScoreBtn.addEventListener("click", function highscore(){
-    if(highscoreInputName.value === "") {
+submitScoreBtn.addEventListener("click", function highscore() {
+    if (highscoreInputName.value === "") {
         alert("Initials cannot be blank");
         return false;
-    }else{
+    } else {
         var savedHighscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
         var currentUser = highscoreInputName.value.trim();
         var currentHighscore = {
-            name : currentUser,
-            score : score
+            name: currentUser,
+            score: score
         };
-    
+
         gameoverDiv.style.display = "none";
         highscoreContainer.style.display = "flex";
         highscoreDiv.style.display = "block";
         endGameBtns.style.display = "flex";
-        
+
         savedHighscores.push(currentHighscore);
         localStorage.setItem("savedHighscores", JSON.stringify(savedHighscores));
         generateHighscores();
 
     }
-    
+
 });
 
 // Clears the list and gets new high score list
-function generateHighscores(){
+function generateHighscores() {
     highscoreDisplayName.innerHTML = "";
     highscoreDisplayScore.innerHTML = "";
     var highscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
-    for (i=0; i<highscores.length; i++){
+    for (i = 0; i < highscores.length; i++) {
         var newNameSpan = document.createElement("li");
         var newScoreSpan = document.createElement("li");
         newNameSpan.textContent = highscores[i].name;
@@ -146,7 +150,7 @@ function generateHighscores(){
 }
 
 // Shows you the high scores page
-function showHighscore(){
+function showHighscore() {
     startQuizDiv.style.display = "none"
     gameoverDiv.style.display = "none";
     highscoreContainer.style.display = "flex";
@@ -157,14 +161,14 @@ function showHighscore(){
 }
 
 //Clears all the things
-function clearScore(){
+function clearScore() {
     window.localStorage.clear();
     highscoreDisplayName.textContent = "";
     highscoreDisplayScore.textContent = "";
 }
 
 //Resets the quiz back to original
-function restartQuiz(){
+function restartQuiz() {
     highscoreContainer.style.display = "none";
     gameoverDiv.style.display = "none";
     startQuizDiv.style.display = "flex";
@@ -174,25 +178,25 @@ function restartQuiz(){
 }
 
 //This checks if they selected the right answer 
-function checkAnswer(answer){
+function checkAnswer(answer) {
     correct = quizQuestions[currentQuestionIndex].correctAnswer;
 
-    if (answer === correct && currentQuestionIndex !== finalQuestionIndex){
+    if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
         score++;
 
         currentQuestionIndex++;
         generateQuizQuestion();
         //display in the results div that the answer is correct.
-    }else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex){
+    } else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex) {
         currentQuestionIndex++;
         generateQuizQuestion();
-        //removes 20 seconds if they answer incorrectly
-        timeLeft = timeLeft -20;
+        //removes 5 seconds if they answer incorrectly
+        timeLeft = timeLeft - 5;
         //display in the results div that the answer is wrong.
-    }else{
+    } else {
         showScore();
     }
 }
 
 // This button starts the quiz!
-startQuizButton.addEventListener("click",startQuiz);
+startQuizButton.addEventListener("click", startQuiz);

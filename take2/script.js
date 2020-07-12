@@ -78,39 +78,35 @@ function clearStatusClass(element) {
 
 const questions = [
   {
-    question: 'What HTML Tag needs to be applied, before you can use JS?',
+    question: 'What is 2 + 2?',
     answers: [
-      { text: '<javascript>', correct: false },
-      { text: '<scripty>', correct: false },
-      { text: '<js>', correct: false },
-      { text: '<script>', correct: true }
+      { text: '4', correct: true },
+      { text: '22', correct: false }
     ]
   },
   {
-    question: 'What is the correct syntax to create an alert box saying "hello world"?',
+    question: 'Who is the best YouTuber?',
     answers: [
-      { text: 'alert(“hello world”);', correct: true },
-      { text: 'msg(“hello world”);', correct: false },
-      { text: 'msgbox(“hello world”)', correct: false },
-      { text: 'alertbox(“hello world”);', correct: false }
+      { text: 'Web Dev Simplified', correct: true },
+      { text: 'Traversy Media', correct: true },
+      { text: 'Dev Ed', correct: true },
+      { text: 'Fun Fun Function', correct: true }
     ]
   },
   {
-    question: 'How do you reference an external script called scripty.js?',
+    question: 'Is web development fun?',
     answers: [
-      { text: '<script ref=”scripty.js”>', correct: false },
-      { text: '<script src=”scripty.js”>', correct: true },
-      { text: '<script ref=”scripty.js”>', correct: false },
-      { text: '<script name=”scripty.js”>', correct: false }
+      { text: 'Kinda', correct: false },
+      { text: 'YES!!!', correct: true },
+      { text: 'Um no', correct: false },
+      { text: 'IDK', correct: false }
     ]
   },
   {
-    question: 'What is used to create an or statement?',
+    question: 'What is 4 * 2?',
     answers: [
-      { text: '||', correct: false },
-      { text: '&&', correct: true },
-      { text: '--', correct: true },
-      { text: '!!', correct: true },
+      { text: '6', correct: false },
+      { text: '8', correct: true }
     ]
   }
 ]
